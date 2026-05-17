@@ -1,0 +1,97 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "System user profiles",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "fullName": { "type": "string" },
+        "role": { "type": "string", "enum": ["TENANT", "LANDLORD", "AGENT", "ADMIN"] },
+        "bio": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "email", "fullName", "role"]
+    },
+    "Property": {
+      "title": "Property",
+      "description": "Rental property listing",
+      "type": "object",
+      "properties": {
+        "propertyId": { "type": "string" },
+        "landlordId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "location": {
+          "type": "object",
+          "properties": {
+            "address": { "type": "string" },
+            "city": { "type": "string" },
+            "state": { "type": "string" },
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "category": { "type": "string" },
+        "amenities": { "type": "array", "items": { "type": "string" } },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "rating": { "type": "number" },
+        "status": { "type": "string", "enum": ["AVAILABLE", "RENTED", "UNDER_REVIEW"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["propertyId", "landlordId", "title", "price", "location", "status"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Property booking records",
+      "type": "object",
+      "properties": {
+        "bookingId": { "type": "string" },
+        "propertyId": { "type": "string" },
+        "tenantId": { "type": "string" },
+        "startDate": { "type": "string", "format": "date-time" },
+        "endDate": { "type": "string", "format": "date-time" },
+        "totalPrice": { "type": "number" },
+        "status": { "type": "string", "enum": ["PENDING", "CONFIRMED", "CANCELLED", "COMPLETED"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["bookingId", "propertyId", "tenantId", "startDate", "endDate", "totalPrice", "status"]
+    },
+    "Chat": {
+      "title": "Chat",
+      "description": "Messaging conversation session",
+      "type": "object",
+      "properties": {
+        "chatId": { "type": "string" },
+        "participants": { "type": "array", "items": { "type": "string" } },
+        "lastMessage": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Direct message content",
+      "type": "object",
+      "properties": {
+        "messageId": { "type": "string" },
+        "chatId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "text": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": { "schema": "User", "description": "Global user profiles" },
+    "/properties/{propertyId}": { "schema": "Property", "description": "Global property listings" },
+    "/bookings/{bookingId}": { "schema": "Booking", "description": "All booking transactions" },
+    "/chats/{chatId}": { "schema": "Chat", "description": "Active conversations" },
+    "/chats/{chatId}/messages/{messageId}": { "schema": "Message", "description": "Individual messages within a chat" },
+    "/users/{userId}/wishlist/{propertyId}": { "schema": { "type": "object", "properties": { "propertyId": { "type": "string" }, "addedAt": { "type": "string", "format": "date-time" } } }, "description": "User specific wishlists" }
+  }
+}

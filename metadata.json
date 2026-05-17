@@ -1,0 +1,6 @@
+{
+  "name": "UrbanStay Nigeria",
+  "description": "A premium production-ready apartment booking and house rental platform with real-time messaging, interactive maps, and integrated payments.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
