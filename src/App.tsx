@@ -5,7 +5,7 @@
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/sonner.tsx";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import GeminiAssistant from "./components/GeminiAssistant";
